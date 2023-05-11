@@ -3,15 +3,55 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>org.example</groupId>
     <artifactId>DigDesEd</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>controller</module>
+        <module>business</module>
+        <module>business/model</module>
+        <module>business/dao</module>
+        <module>business/mapper</module>
+        <module>dto</module>
+        <module>view</module>
+    </modules>
 
     <properties>
+        <revision>0.1</revision>
+        <changelist>-SNAPSHOT</changelist>
         <maven.compiler.source>20</maven.compiler.source>
         <maven.compiler.target>20</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+
+        </dependencies>
+    </dependencyManagement>
+
+<!--    <build>-->
+<!--        <finalName>digDes-sample</finalName>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <artifactId>maven-assembly-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <finalName>digDes-sample-exec</finalName>-->
+<!--                    <archive>-->
+<!--                        <manifest>-->
+<!--                            <mainClass>org.example.view.App</mainClass>-->
+<!--                        </manifest>-->
+<!--                    </archive>-->
+<!--                    <descriptorRefs>-->
+<!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
+<!--                    </descriptorRefs>-->
+<!--                    <appendAssemblyId>false</appendAssemblyId>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+
+<!--        </plugins>-->
+<!--    </build>-->
 
 </project>

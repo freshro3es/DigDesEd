@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+#  postgres:
+#    image: 'postgres:10'
+#    container_name: 'java-postgres'
+#    environment:
+#      - 'POSTGRES_USER=admin'
+#      - 'POSTGRES_HOST_AUTH_METHOD=trust'
+#      - 'POSTGRES_DB=digdesed'
+  app:
+    build: ./
+    container_name: 'dig-des-app'
+#    ports:
+#      - 8080:8080
+#    links:
+#      - 'postgres:dig-des-database'
+
+
+#docker ps -all
+#docker-compose up -d --build
+#docker rmi <id>
+#docker rm <id>
+#docker logs dig-des-app --follow
