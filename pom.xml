@@ -15,6 +15,7 @@
         <module>business/mapper</module>
         <module>dto</module>
         <module>view</module>
+        <module>business/Service</module>
     </modules>
 
     <properties>
