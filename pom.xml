@@ -16,6 +16,7 @@
         <module>dto</module>
         <module>view</module>
         <module>business/Service</module>
+        <module>libs</module>
     </modules>
 
     <properties>

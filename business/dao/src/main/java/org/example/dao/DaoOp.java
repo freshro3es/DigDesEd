@@ -6,7 +6,6 @@ import java.util.List;
 
 
 //Этот касс отвечает за операции сериализации/десериализации
-//Возможно, я позже перенесу сюда CRUD операции
 public class DaoOp<T> {
 
     protected final String filePath;

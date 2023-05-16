@@ -1,35 +1,69 @@
 package org.example.dao;
 
+import org.example.libs.EmpStat;
 import org.example.model.Employee;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDao extends DaoOp<Employee> {
+public class EmployeeDao extends DaoOp<Employee> implements CrudOp<Employee> {
+
+    private List<Employee> data= new ArrayList<>();
+
     public EmployeeDao() {
-        super("Employee.txt", Employee.class);
+        super("./Employee.txt", Employee.class);
     }
 
-
-    //Это пока заглушки для методов, допишу позже
-    //-------------------------------------------
-    public void create(Employee employee) {
-        //add(employee);
+    //Инициализирует список с работниками в нашем объекте
+    //Я хотел сделать статический метод create() для создания
+    //employeeDao, но метод read() не статический и без выноса
+    //из родительского дженерик класса его таким не сделать
+    public void init() throws IOException, ClassNotFoundException {
+        data = read();
     }
 
+    @Override
+    public void create(Employee employee)  {
+        data.add(employee);
+        try {
+            write(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void update(Employee employee) {
-        //updateItem(employee);
+        for (int i=0; i< data.size(); i++) {
+            if (data.get(i).getId()==employee.getId()) {
+                data.set(i, employee);
+                return;
+            }
+        }
     }
 
+    @Override
     public Employee getById(int id) {
-        return null; //getItemById(id);
+        for (Employee emp : data) {
+            if (emp.getId() == id) {
+                return emp;
+            }
+        }
+        return null;
     }
 
+    @Override
     public List<Employee> getAll() {
-        return null; //getAllItems();
+        return data;
     }
 
+    @Override
     public void deleteById(int id) {
-        //deleteItemById(id);
+        for (Employee emp : data) {
+            if (emp.getId() == id) {
+                emp.setEmpStat(EmpStat.DELETED);
+            }
+        }
     }
-    //-------------------------------------------
 }
