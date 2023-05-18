@@ -38,6 +38,11 @@ public class EmployeeDao extends DaoOp<Employee> implements CrudOp<Employee> {
         for (int i=0; i< data.size(); i++) {
             if (data.get(i).getId()==employee.getId()) {
                 data.set(i, employee);
+                try {
+                    write(data);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 return;
             }
         }
@@ -63,6 +68,12 @@ public class EmployeeDao extends DaoOp<Employee> implements CrudOp<Employee> {
         for (Employee emp : data) {
             if (emp.getId() == id) {
                 emp.setEmpStat(EmpStat.DELETED);
+                try {
+                    write(data);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return;
             }
         }
     }
