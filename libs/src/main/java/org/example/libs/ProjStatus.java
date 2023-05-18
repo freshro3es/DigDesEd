@@ -1,6 +1,6 @@
 package org.example.libs;
 
-public enum ProjStat {
+public enum ProjStatus {
     DRAFT,
     DEVELOPING,
     TESTING,

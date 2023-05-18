@@ -1,6 +1,6 @@
 package org.example.dto;
 
-import org.example.libs.TaskStat;
+import org.example.libs.TaskStatus;
 
 import java.util.Date;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class OrderTaskDTO {
     private String description;
     private int authorId;
     private String author;
-    private TaskStat status;
+    private TaskStatus status;
     private Date creationDate;
     private int labourHours;
     private Date deadline;

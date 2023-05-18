@@ -1,6 +1,6 @@
 package org.example.model;
 
-import org.example.libs.EmpStat;
+import org.example.libs.EmpStatus;
 import org.example.libs.TeamRole;
 
 import java.io.Serializable;
@@ -21,7 +21,7 @@ public class Employee implements Serializable {
     private String position;
     private String account;
     private String email;
-    private EmpStat empStat;
+    private EmpStatus empStatus;
     private String password;
     private boolean isTemporaryPwd;
     private TeamRole role;

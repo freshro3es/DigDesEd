@@ -1,6 +1,6 @@
 package org.example.dto;
 
-import org.example.libs.EmpStat;
+import org.example.libs.EmpStatus;
 import org.example.libs.TeamRole;
 import lombok.Getter;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ public class UpdateEmployeeDTO {
     private String position;
     private String account;
     private String email;
-    private EmpStat empStat;
+    private EmpStatus status;
     private TeamRole role;
 
 }

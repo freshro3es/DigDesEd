@@ -5,8 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.example</groupId>
-        <artifactId>DigDesEd</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <artifactId>digdes-education</artifactId>
+        <version>${revision}${changelist}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>dto</artifactId>
@@ -20,19 +21,18 @@
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>libs</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${revision}${changelist}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>model</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${revision}${changelist}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.26</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

@@ -1,6 +1,6 @@
 package org.example.dao;
 
-import org.example.libs.EmpStat;
+import org.example.libs.EmpStatus;
 import org.example.model.Employee;
 
 import java.io.IOException;
@@ -67,7 +67,7 @@ public class EmployeeDao extends DaoOp<Employee> implements CrudOp<Employee> {
     public void deleteById(int id) {
         for (Employee emp : data) {
             if (emp.getId() == id) {
-                emp.setEmpStat(EmpStat.DELETED);
+                emp.setEmpStatus(EmpStatus.DELETED);
                 try {
                     write(data);
                 } catch (IOException e) {

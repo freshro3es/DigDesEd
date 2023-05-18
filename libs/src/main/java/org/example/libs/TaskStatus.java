@@ -1,6 +1,6 @@
 package org.example.libs;
 
-public enum TaskStat {
+public enum TaskStatus {
     NEW,
     IN_PROGRESS,
     COMPLETED,

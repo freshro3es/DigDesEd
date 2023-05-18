@@ -1,6 +1,6 @@
 package org.example.model;
 
-import org.example.libs.ProjStat;
+import org.example.libs.ProjStatus;
 
 import java.io.Serializable;
 
@@ -15,7 +15,7 @@ public class Project implements Serializable {
     private final int id;
     private String name;
     private String description;
-    private ProjStat status;
+    private ProjStatus status;
     private Team team;
 
 }

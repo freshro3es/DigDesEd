@@ -1,6 +1,6 @@
 package org.example.model;
 
-import org.example.libs.ProjStat;
+import org.example.libs.ProjStatus;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,7 +12,7 @@ class ProjectTest {
         final int id = 2;
         String name = "Vtec";
         String description = "The Power of Dreams";
-        ProjStat status = ProjStat.DEVELOPING;
+        ProjStatus status = ProjStatus.DEVELOPING;
         Team team = null;
 
         Project project = new Project(id, name, description, status, team);

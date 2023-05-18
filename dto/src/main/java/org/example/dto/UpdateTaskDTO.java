@@ -2,7 +2,7 @@ package org.example.dto;
 
 
 import lombok.AllArgsConstructor;
-import org.example.libs.TaskStat;
+import org.example.libs.TaskStatus;
 
 import java.util.Date;
 import lombok.Getter;
@@ -14,7 +14,7 @@ public class UpdateTaskDTO {
     private int projectId;
     private String name;
     private String description;
-    private TaskStat status;
+    private TaskStatus status;
     private int labourHours;
     private Date deadline;
 

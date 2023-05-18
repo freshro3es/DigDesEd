@@ -1,6 +1,6 @@
 package org.example.model;
 
-import org.example.libs.TaskStat;
+import org.example.libs.TaskStatus;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,7 +19,7 @@ public class Task implements Serializable {
     private String description;
     private int authorId;
     private String author;
-    private TaskStat status;
+    private TaskStatus status;
     private Date creationDate;
     private int labourHours;
     @Setter(lombok.AccessLevel.NONE)
@@ -33,7 +33,7 @@ public class Task implements Serializable {
                 String description,
                 int authorId,
                 String author,
-                TaskStat status,
+                TaskStatus status,
                 Date creationDate,
                 int labourHours,
                 Date deadline,

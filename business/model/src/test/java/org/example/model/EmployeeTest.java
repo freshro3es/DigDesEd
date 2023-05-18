@@ -1,6 +1,6 @@
 package org.example.model;
 
-import org.example.libs.EmpStat;
+import org.example.libs.EmpStatus;
 import org.example.libs.TeamRole;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ class EmployeeTest {
         String position = "SEO";
         String account = "freshwater";
         String email = "marcellomakaroni@gmail.com";
-        EmpStat status = EmpStat.ACTIVE;
+        EmpStatus status = EmpStatus.ACTIVE;
         String password = "Makaroni";
         boolean isTemporaryPwd = true;
         TeamRole role = TeamRole.ANALYST;

@@ -1,7 +1,6 @@
 package org.example.model;
 
-import org.example.libs.TaskStat;
-import org.junit.jupiter.api.Assertions;
+import org.example.libs.TaskStatus;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
@@ -17,7 +16,7 @@ class TaskTest {
     private String description = "Дядь, сам разберешься";
     private int authorId = 6;
     private String author = "Юра";
-    private TaskStat status = TaskStat.NEW;
+    private TaskStatus status = TaskStatus.NEW;
     private Date creationDate = Date.valueOf("2021-06-30");
     private int labourHours = 60;
     private Date deadline = Date.valueOf("2022-06-30");
