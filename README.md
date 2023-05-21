@@ -39,7 +39,7 @@
 
 #### Детализация ER диаграммы
 
-![image](https://github.com/freshro3es/DigDesEd/assets/104096803/f59cb784-cd97-40ea-abce-af01e053746f)
+![image](https://github.com/freshro3es/DigDesEd/assets/104096803/0eeacef0-666d-48a5-8c89-010f339cdc78)
 
 
 ### Построение модели данных представления (DTO)
