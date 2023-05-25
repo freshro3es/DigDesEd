@@ -33,6 +33,15 @@
 
 ### Работа с БД (DAO)
 
+#### ER диаграмма данных
+
+![image](https://github.com/freshro3es/DigDesEd/assets/104096803/042e7779-ed2b-44e0-b08c-8e93b6055087)
+
+#### Детализация ER диаграммы
+
+![image](https://github.com/freshro3es/DigDesEd/assets/104096803/0eeacef0-666d-48a5-8c89-010f339cdc78)
+
+
 ### Построение модели данных представления (DTO)
 
 ### Работа над модулем преобразования моделей (Mapping)

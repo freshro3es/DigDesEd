@@ -27,6 +27,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lombok.version>1.18.26</lombok.version>
         <junit-jupiter-api.verison>5.9.3</junit-jupiter-api.verison>
+        <liquibase-core.version>4.22.0</liquibase-core.version>
     </properties>
 
     <dependencyManagement>
@@ -42,6 +43,11 @@
                 <artifactId>junit-jupiter-api</artifactId>
                 <version>${junit-jupiter-api.verison}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>${liquibase-core.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
