@@ -5,30 +5,61 @@ import org.example.libs.TaskStatus;
 import java.io.Serializable;
 import java.util.Date;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Getter @Setter @ToString
+@Entity
+@Table(name = "task")
+@Getter @Setter @ToString @NoArgsConstructor
 public class Task implements Serializable {
 
-    private final int id;
-    private int employeeId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_employee")
+    private Employee employee;
+
+//    @Column(name = "fk_employee")
+//    private int employeeId;
+
+    @Column(name = "fk_project")
     private int projectId;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "author_id")
     private int authorId;
+
+    @Column(name = "author")
     private String author;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private TaskStatus status;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_date")
     private Date creationDate;
+
+    @Column(name = "labour_hours")
     private int labourHours;
-    @Setter(lombok.AccessLevel.NONE)
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "deadline")
     private Date deadline;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "update_date")
     private Date updateDate;
 
-    public Task(int id,
-                int employeeId,
-                int projectId,
+    public Task(int projectId,
                 String name,
                 String description,
                 int authorId,
@@ -39,8 +70,7 @@ public class Task implements Serializable {
                 Date deadline,
                 Date updateDate
     ) {
-        this.id = id;
-        this.employeeId = employeeId;
+//        this.employeeId = employeeId;
         this.projectId = projectId;
         this.name = name;
         this.description = description;
