@@ -1,6 +1,7 @@
 package org.example.config;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.example.dao.EmployeeDAO;
 import org.example.dao.ProjectDAO;
 import org.example.dao.TaskDAO;
@@ -9,7 +10,6 @@ import org.example.service.EmployeeService;
 import org.example.service.ProjectService;
 import org.example.service.TaskService;
 import org.example.service.TeamService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +20,7 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:/application.properties")
 public class ApplicationConfig {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
 
