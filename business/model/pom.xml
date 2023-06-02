@@ -50,18 +50,6 @@
             <artifactId>hibernate-core</artifactId>
             <version>6.2.3.Final</version>
         </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>dao</artifactId>
-            <version>0.1-SNAPSHOT</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>dao</artifactId>
-            <version>0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
 </project>
