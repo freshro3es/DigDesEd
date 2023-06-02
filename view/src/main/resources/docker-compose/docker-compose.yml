@@ -14,7 +14,7 @@ services:
       - ./imports/postgres/:/docker-entrypoint-initdb.d/
 
   app:
-    build: ../..
+    build: ../../../../..
     container_name: 'dig-des-app'
 #    ports:
 #      - "8080:8080"

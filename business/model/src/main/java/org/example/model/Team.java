@@ -19,13 +19,8 @@ public class Team implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "employee_in_team",
-            joinColumns = { @JoinColumn(name = "fk_employee") },
-            inverseJoinColumns = { @JoinColumn(name = "fk_team") }
-    )
-    private List<Employee> employees;
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    private List<EmployeeInTeam> employeeInTeams;
 
     @OneToOne(mappedBy = "team", cascade = CascadeType.ALL)
     private Project project;

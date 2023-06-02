@@ -1,4 +1,4 @@
-package org.example.dto;
+package org.example.dto.order;
 
 import org.example.libs.EmpStatus;
 import org.example.libs.TeamRole;
@@ -16,6 +16,5 @@ public class OrderEmployeeDTO {
     private String account;
     private String email;
     private EmpStatus status;
-    private TeamRole role;
 
 }

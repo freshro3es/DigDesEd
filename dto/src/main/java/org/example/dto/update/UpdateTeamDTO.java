@@ -1,10 +1,10 @@
-package org.example.dto;
+package org.example.dto.update;
 
 import lombok.Getter;
 import lombok.AllArgsConstructor;
 
 @Getter @AllArgsConstructor
-public class CreateProjectDTO {
+public class UpdateTeamDTO {
 
     private String name;
 

@@ -1,4 +1,4 @@
-package org.example.dto;
+package org.example.dto.update;
 
 import org.example.libs.EmpStatus;
 import org.example.libs.TeamRole;
@@ -15,6 +15,5 @@ public class UpdateEmployeeDTO {
     private String account;
     private String email;
     private EmpStatus status;
-    private TeamRole role;
 
 }

@@ -9,19 +9,39 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "employee")
+@Table(
+        name = "employee",
+        uniqueConstraints = @UniqueConstraint(
+                name = "account_unique",
+                columnNames = "account"
+        )
+)
 @Getter @Setter @ToString @NoArgsConstructor @AllArgsConstructor
 public class Employee implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "employee_sequence",
+            sequenceName = "employee_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "employee_sequence"
+    )
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "firstname")
+    @Column(
+            name = "firstname",
+            nullable = false
+    )
     private String firstName;
 
-    @Column(name = "lastname")
+    @Column(
+            name = "lastname",
+            nullable = false
+    )
     private String lastName;
 
     @Column(name = "fathername")
@@ -37,21 +57,34 @@ public class Employee implements Serializable {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
+    @Column(
+            name = "status",
+            nullable = false
+    )
     private EmpStatus empStatus;
 
-    @Column(name = "password")
+    @Column(
+            name = "password",
+            nullable = false
+    )
     private String password;
 
     @Column(name = "is_temporary_pwd")
     private boolean isTemporaryPwd;
 
-    @Enumerated(EnumType.STRING)
-    private TeamRole role;
+//    @Enumerated(EnumType.STRING)
+//    private TeamRole role;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private List<EmployeeInTeam> employeeInTeams;
+
+    @OneToMany(mappedBy = "employee", cascade = {
+            CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH
+    })
     private List<Task> tasks;
 
-    @ManyToMany(mappedBy="employees")
-    private List<Team> teams;
+//    @ManyToMany(mappedBy="employees")
+//    private List<Team> teams;
+
 }

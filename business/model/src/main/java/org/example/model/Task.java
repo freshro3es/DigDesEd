@@ -16,7 +16,7 @@ public class Task implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "fk_employee")
@@ -26,7 +26,7 @@ public class Task implements Serializable {
 //    private int employeeId;
 
     @Column(name = "fk_project")
-    private int projectId;
+    private Long projectId;
 
     @Column(name = "name")
     private String name;
@@ -35,7 +35,7 @@ public class Task implements Serializable {
     private String description;
 
     @Column(name = "author_id")
-    private int authorId;
+    private Long authorId;
 
     @Column(name = "author")
     private String author;
@@ -59,10 +59,10 @@ public class Task implements Serializable {
     @Column(name = "update_date")
     private Date updateDate;
 
-    public Task(int projectId,
+    public Task(Long projectId,
                 String name,
                 String description,
-                int authorId,
+                Long authorId,
                 String author,
                 TaskStatus status,
                 Date creationDate,

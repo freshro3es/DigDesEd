@@ -1,11 +1,13 @@
 package org.example.controller;
 
-import org.example.dto.CreateEmployeeDTO;
-import org.example.dto.OrderEmployeeDTO;
-import org.example.dto.UpdateEmployeeDTO;
+import org.example.dto.create.CreateEmployeeDTO;
+import org.example.dto.order.OrderEmployeeDTO;
+import org.example.dto.search.SearchEmployeeDTO;
+import org.example.dto.update.UpdateEmployeeDTO;
 import org.example.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,34 +19,35 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @GetMapping
-    public List<OrderEmployeeDTO> getAllEmployees() {
-        return employeeService.getAllEmployees();
+    @GetMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<OrderEmployeeDTO> findAll() {
+        return employeeService.findAll();
     }
 
-    @GetMapping("/filter")
-    public List<OrderEmployeeDTO> getAllEmployeesWithParam(OrderEmployeeDTO orderEmployeeDTO) {
-        return employeeService.getAllEmployeesWithParam(orderEmployeeDTO);
+    @GetMapping(value = "/filter", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<OrderEmployeeDTO> search(SearchEmployeeDTO searchEmployeeDTO) {
+        return employeeService.search(searchEmployeeDTO);
     }
 
-    @GetMapping("/{id}")
-    public OrderEmployeeDTO getEmployeeById(@PathVariable Long id) {
-        return employeeService.getEmployeeById(id);
+    @GetMapping(value = "/get", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public OrderEmployeeDTO getEmployeeById(@RequestParam Long id) {
+        System.out.println("Controller works");
+        return employeeService.findById(id);
     }
 
-    @PostMapping
+    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void createEmployee(@RequestBody CreateEmployeeDTO createEmployeeDTO) {
-        employeeService.saveEmployee(createEmployeeDTO);
+    public @ResponseBody void createEmployee(@RequestBody CreateEmployeeDTO createEmployeeDTO) {
+        employeeService.save(createEmployeeDTO);
     }
 
-    @PutMapping("/{id}")
-    public void updateEmployee(@PathVariable Long id, @RequestBody UpdateEmployeeDTO updateEmployeeDTO) {
-        employeeService.updateEmployee(id, updateEmployeeDTO);
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody void updateEmployee(@PathVariable Long id, @RequestBody UpdateEmployeeDTO updateEmployeeDTO) {
+        employeeService.update(id, updateEmployeeDTO);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteEmployee(@PathVariable Long id) {
-        employeeService.deleteEmployeeById(id);
+        employeeService.delete(id);
     }
 }

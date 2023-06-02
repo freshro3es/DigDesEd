@@ -1,4 +1,4 @@
-package org.example.dto;
+package org.example.dto.update;
 
 import org.example.libs.ProjStatus;
 
@@ -6,11 +6,11 @@ import lombok.Getter;
 import lombok.AllArgsConstructor;
 
 @Getter @AllArgsConstructor
-public class OrderProjectDTO {
+public class UpdateProjectDTO {
 
     private String name;
     private String description;
     private ProjStatus status;
-    private String team;
+    private int teamId;
 
 }

@@ -1,10 +1,10 @@
-package org.example.dto;
+package org.example.dto.create;
 
 import lombok.Getter;
 import lombok.AllArgsConstructor;
 
 @Getter @AllArgsConstructor
-public class CreateTeamDTO {
+public class CreateProjectDTO {
 
     private String name;
 
