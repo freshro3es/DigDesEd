@@ -1,5 +1,7 @@
 package org.example.dto.create;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.example.libs.EmpStatus;
 
 import lombok.Getter;
@@ -12,11 +14,15 @@ public class CreateEmployeeDTO {
     private final String password;
     private final EmpStatus status;
 
-    public CreateEmployeeDTO(String firstname, String lastname, String email, String password) {
+    @JsonCreator
+    public CreateEmployeeDTO(@JsonProperty("firstname") String firstname,
+                             @JsonProperty("lastname") String lastname,
+                             @JsonProperty("email") String email,
+                             @JsonProperty("password") String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
-        this.password = password; //Здесь будет функция хеширования
+        this.password = password; // Здесь будет функция хеширования
         this.status = EmpStatus.ACTIVE;
     }
 }
