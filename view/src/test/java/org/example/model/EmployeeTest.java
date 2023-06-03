@@ -2,6 +2,7 @@
 //
 //import org.example.config.ModelConfig;
 //import org.example.libs.EmpStatus;
+//import org.example.model.Employee;
 //import org.example.repository.EmployeeRepository;
 //import org.junit.jupiter.api.Test;
 //
@@ -13,7 +14,7 @@
 //
 //import java.util.List;
 //
-//@SpringJUnitConfig(ModelConfig.class)
+//@SpringJUnitConfig(classes = ModelConfig.class)
 //@DataJpaTest
 //class EmployeeTest {
 //

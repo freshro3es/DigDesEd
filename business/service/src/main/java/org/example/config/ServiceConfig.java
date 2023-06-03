@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @ComponentScan(basePackages = {"org.example.service"})
-@PropertySource("file:../../../../view/src/main/resources/application.properties")
+//@PropertySource("file:../../../../view/src/main/resources/application.properties")
 public class ServiceConfig {
 
 }

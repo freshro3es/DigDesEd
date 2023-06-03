@@ -19,17 +19,17 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @GetMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody List<OrderEmployeeDTO> findAll() {
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<OrderEmployeeDTO> findAll() {
         return employeeService.findAll();
     }
 
     @GetMapping(value = "/filter", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody List<OrderEmployeeDTO> search(SearchEmployeeDTO searchEmployeeDTO) {
+    public List<OrderEmployeeDTO> search(SearchEmployeeDTO searchEmployeeDTO) {
         return employeeService.search(searchEmployeeDTO);
     }
 
-    @GetMapping(value = "/get", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public OrderEmployeeDTO getEmployeeById(@RequestParam Long id) {
         System.out.println("Controller works");
         return employeeService.findById(id);
@@ -37,12 +37,12 @@ public class EmployeeController {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody void createEmployee(@RequestBody CreateEmployeeDTO createEmployeeDTO) {
+    public void createEmployee(@RequestBody CreateEmployeeDTO createEmployeeDTO) {
         employeeService.save(createEmployeeDTO);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody void updateEmployee(@PathVariable Long id, @RequestBody UpdateEmployeeDTO updateEmployeeDTO) {
+    public void updateEmployee(@PathVariable Long id, @RequestBody UpdateEmployeeDTO updateEmployeeDTO) {
         employeeService.update(id, updateEmployeeDTO);
     }
 
