@@ -13,6 +13,7 @@ public class EmployeeInTeam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private TeamRole role;
 

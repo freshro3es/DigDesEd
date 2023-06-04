@@ -3,32 +3,17 @@ package org.example.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.libs.EmpStatus;
-import org.example.libs.TeamRole;
 
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(
-        name = "employee",
-        uniqueConstraints = @UniqueConstraint(
-                name = "account_unique",
-                columnNames = "account"
-        )
-)
+@Table(name = "employee")
 @Getter @Setter @ToString @NoArgsConstructor @AllArgsConstructor
 public class Employee implements Serializable {
 
     @Id
-    @SequenceGenerator(
-            name = "employee_sequence",
-            sequenceName = "employee_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "employee_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -50,17 +35,14 @@ public class Employee implements Serializable {
     @Column(name = "position")
     private String position;
 
-    @Column(name = "account")
+    @Column(name = "account", unique = true)
     private String account;
 
     @Column(name = "email")
     private String email;
 
     @Enumerated(EnumType.STRING)
-    @Column(
-            name = "status",
-            nullable = false
-    )
+    @Column(name = "status", nullable = false)
     private EmpStatus empStatus;
 
     @Column(

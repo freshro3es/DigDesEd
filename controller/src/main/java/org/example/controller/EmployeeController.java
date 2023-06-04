@@ -30,7 +30,7 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public OrderEmployeeDTO getEmployeeById(@RequestParam Long id) {
+    public OrderEmployeeDTO getEmployeeById(@PathVariable Long id) {
         System.out.println("Controller works");
         return employeeService.findById(id);
     }

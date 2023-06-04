@@ -22,9 +22,6 @@ public class Task implements Serializable {
     @JoinColumn(name = "fk_employee")
     private Employee employee;
 
-//    @Column(name = "fk_employee")
-//    private int employeeId;
-
     @Column(name = "fk_project")
     private Long projectId;
 
@@ -48,8 +45,8 @@ public class Task implements Serializable {
     @Column(name = "creation_date")
     private Date creationDate;
 
-    @Column(name = "labour_hours")
-    private int labourHours;
+    @Column(name = "labour_hours") //TODO не ясно, как поведет себя это поле, нужно протестировать
+    private Long labourHours;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "deadline")
@@ -66,11 +63,10 @@ public class Task implements Serializable {
                 String author,
                 TaskStatus status,
                 Date creationDate,
-                int labourHours,
+                Long labourHours,
                 Date deadline,
                 Date updateDate
     ) {
-//        this.employeeId = employeeId;
         this.projectId = projectId;
         this.name = name;
         this.description = description;
@@ -93,7 +89,8 @@ public class Task implements Serializable {
 
     public boolean isValidDeadline(Date deadline) {
         long deadlineMs = deadline.getTime();
-        long expectedDeadlineMs = getCreationDate().getTime() + ((long) getLabourHours() * 60 * 60 * 1000);
+        long expectedDeadlineMs = getCreationDate().getTime() + (getLabourHours() * 60 * 60 * 1000);
         return deadlineMs > expectedDeadlineMs;
     }
+
 }
