@@ -4,6 +4,7 @@ import org.example.dto.create.CreateEmployeeDTO;
 import org.example.dto.order.OrderEmployeeDTO;
 import org.example.dto.search.SearchEmployeeDTO;
 import org.example.dto.update.UpdateEmployeeDTO;
+import org.example.libs.EmpStatus;
 import org.example.mapper.EmployeeMapper;
 import org.example.model.Employee;
 import org.example.repository.EmployeeRepository;
@@ -34,7 +35,9 @@ public class EmployeeService {
     }
 
     public List<OrderEmployeeDTO> search(SearchEmployeeDTO searchEmployeeDTO) {
-        List<Employee> employees = employeeRepository.search(searchEmployeeDTO.getSearch());
+        System.out.println(searchEmployeeDTO.getSearch());
+        List<Employee> employees = employeeRepository.search(searchEmployeeDTO.getSearch(), EmpStatus.ACTIVE);
+        System.out.println(employees);
         return employees.stream().map(employeeMapper::toOrderEmployeeDTO).collect(Collectors.toList());
     }
 
