@@ -52,13 +52,13 @@
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>dao</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>${revision}${changelist}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>mapper</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>${revision}${changelist}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

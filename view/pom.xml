@@ -40,25 +40,25 @@
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>service</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>${revision}${changelist}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>dto</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>${revision}${changelist}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>mapper</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>${revision}${changelist}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>controller</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>${revision}${changelist}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
