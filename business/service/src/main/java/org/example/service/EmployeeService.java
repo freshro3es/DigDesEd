@@ -35,16 +35,13 @@ public class EmployeeService {
     }
 
     public List<OrderEmployeeDTO> search(SearchEmployeeDTO searchEmployeeDTO) {
-        System.out.println(searchEmployeeDTO.getSearch());
         List<Employee> employees = employeeRepository.search(searchEmployeeDTO.getSearch(), EmpStatus.ACTIVE);
-        System.out.println(employees);
         return employees.stream().map(employeeMapper::toOrderEmployeeDTO).collect(Collectors.toList());
     }
 
     public Employee save(CreateEmployeeDTO createEmployeeDTO) {
         Employee employee = employeeMapper.toEmployee(createEmployeeDTO);
-        employee = employeeRepository.save(employee);
-        return employee;
+        return employeeRepository.save(employee);
     }
 
     public Employee update(Long id, UpdateEmployeeDTO updateEmployeeDTO) {

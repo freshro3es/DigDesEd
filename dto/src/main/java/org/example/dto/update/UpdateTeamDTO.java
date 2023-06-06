@@ -1,11 +1,16 @@
 package org.example.dto.update;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.AllArgsConstructor;
 
-@Getter @AllArgsConstructor
+@Getter
 public class UpdateTeamDTO {
 
-    private String name;
+    private final String name;
 
+    @JsonCreator
+    public UpdateTeamDTO(@JsonProperty("name") String name) {
+        this.name = name;
+    }
 }

@@ -5,13 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
-public class SearchEmployeeDTO {
+public class SearchTeamDTO {
 
     private final String search;
 
     @JsonCreator
-    public SearchEmployeeDTO(@JsonProperty("search") String search) {
+    public SearchTeamDTO(@JsonProperty("search") String search) {
         this.search = search;
     }
-
 }
