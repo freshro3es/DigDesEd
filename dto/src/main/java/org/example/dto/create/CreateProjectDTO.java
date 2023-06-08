@@ -1,11 +1,17 @@
 package org.example.dto.create;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.AllArgsConstructor;
 
-@Getter @AllArgsConstructor
+@Getter
 public class CreateProjectDTO {
 
-    private String name;
+    private final String name;
+
+    @JsonCreator
+    public CreateProjectDTO(@JsonProperty("name") String name) {
+        this.name = name;
+    }
 
 }

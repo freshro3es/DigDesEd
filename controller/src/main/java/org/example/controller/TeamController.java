@@ -1,7 +1,7 @@
 package org.example.controller;
 
 import org.example.dto.create.CreateTeamDTO;
-import org.example.dto.order.OrderEmployeeDTO;
+import org.example.dto.order.OrderEmployeeInTeamDTO;
 import org.example.dto.order.OrderTeamDTO;
 import org.example.dto.search.SearchTeamDTO;
 import org.example.dto.update.AddMemberTeamDTO;
@@ -57,15 +57,15 @@ public class TeamController {
 
 
     @GetMapping(value = "/{teamId}/members", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<OrderEmployeeDTO> getTeamMembers(@PathVariable Long teamId) {
+    public List<OrderEmployeeInTeamDTO> getTeamMembers(@PathVariable Long teamId) {
         return teamService.getTeamMembers(teamId);
     }
 
-//    @PostMapping(value = "/{teamId}/members", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public void addTeamMember(@PathVariable Long teamId, @RequestBody AddMemberTeamDTO addMemberTeamDTO) {
-//        teamService.addTeamMember(teamId, addMemberTeamDTO);
-//    }
+    @PostMapping(value = "/{teamId}/members", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addTeamMember(@PathVariable Long teamId, @RequestBody AddMemberTeamDTO addMemberTeamDTO) {
+        teamService.addTeamMember(teamId, addMemberTeamDTO);
+    }
 
     @DeleteMapping(value = "/{teamId}/members/{employeeId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)

@@ -8,6 +8,7 @@ import org.example.libs.EmpStatus;
 import org.example.mapper.EmployeeMapper;
 import org.example.model.Employee;
 import org.example.repository.EmployeeRepository;
+import org.example.specification.EmployeeSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,12 @@ public class EmployeeService {
     }
 
     public List<OrderEmployeeDTO> search(SearchEmployeeDTO searchEmployeeDTO) {
-        List<Employee> employees = employeeRepository.search(searchEmployeeDTO.getSearch(), EmpStatus.ACTIVE);
+
+        List<Employee> employees = employeeRepository.findAll(
+                EmployeeSpecification.findByKeywordAndStatus(
+                        searchEmployeeDTO.getSearch(),
+                        EmpStatus.ACTIVE
+                ));
         return employees.stream().map(employeeMapper::toOrderEmployeeDTO).collect(Collectors.toList());
     }
 
@@ -57,7 +63,9 @@ public class EmployeeService {
 
     public Employee delete(Long id) {
         Employee employee = employeeRepository.findById(id).orElse(null);
-        employeeRepository.deleteById(id);
+        if (employee!=null) {
+            employeeRepository.deleteById(id);
+        }
         return employee;
     }
 }

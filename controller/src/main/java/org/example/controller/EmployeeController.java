@@ -26,7 +26,6 @@ public class EmployeeController {
 
     @PostMapping(value = "/filter", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<OrderEmployeeDTO> search(@RequestBody SearchEmployeeDTO searchEmployeeDTO) {
-        System.out.println(searchEmployeeDTO.getSearch());
         return employeeService.search(searchEmployeeDTO);
     }
 

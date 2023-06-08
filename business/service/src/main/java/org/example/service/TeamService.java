@@ -1,19 +1,24 @@
 package org.example.service;
 
 import org.example.dto.create.CreateTeamDTO;
-import org.example.dto.order.OrderEmployeeDTO;
+import org.example.dto.order.OrderEmployeeInTeamDTO;
 import org.example.dto.order.OrderTeamDTO;
 import org.example.dto.search.SearchTeamDTO;
 import org.example.dto.update.AddMemberTeamDTO;
 import org.example.dto.update.UpdateTeamDTO;
+import org.example.mapper.EmployeeInTeamMapper;
 import org.example.mapper.EmployeeMapper;
 import org.example.mapper.TeamMapper;
 import org.example.model.Employee;
 import org.example.model.EmployeeInTeam;
 import org.example.model.Team;
+import org.example.repository.EmployeeInTeamRepository;
+import org.example.repository.EmployeeRepository;
 import org.example.repository.TeamRepository;
+import org.example.specification.EmployeeInTeamSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +31,10 @@ public class TeamService {
     private TeamRepository teamRepository;
 
     @Autowired
-    private EmployeeMapper employeeMapper;
+    private EmployeeInTeamRepository employeeInTeamRepository;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Autowired
     private TeamMapper teamMapper;
@@ -67,21 +75,43 @@ public class TeamService {
         return team;
     }
 
-    public List<OrderEmployeeDTO> getTeamMembers(Long teamId) {
-        List<Employee> employees = teamRepository.getEmployeesInTeam(teamId);
-        return employees.stream().map(employeeMapper::toOrderEmployeeDTO).collect(Collectors.toList());
+    public List<OrderEmployeeInTeamDTO> getTeamMembers(Long teamId) {
+//        List<Employee> employees = teamRepository.getEmployeesInTeam(teamId);
+
+        List<EmployeeInTeam> employeesInTeam = employeeInTeamRepository.findAll(
+                EmployeeInTeamSpecification.findAllByTeamId(teamRepository.findById(teamId).get())
+        );
+        return employeesInTeam.stream().map(EmployeeInTeamMapper::toOrderEmployeeInTeamDTO).collect(Collectors.toList());
     }
 
-//    public void addTeamMember(Long teamId, AddMemberTeamDTO addMemberTeamDTO) {
-//        teamRepository.addEmployeeToTeam(
-//                teamId,
-//                addMemberTeamDTO.getEmployeeId(),
-//                addMemberTeamDTO.getRole()
-//        );
-//    }
+    public EmployeeInTeam addTeamMember(Long teamId, AddMemberTeamDTO addMemberTeamDTO) {
+        Optional<Employee> employeeOptional = employeeRepository.findById(addMemberTeamDTO.getEmployeeId());
+        Optional<Team> teamOptional = teamRepository.findById(teamId);
+        if (employeeOptional.isPresent() & teamOptional.isPresent() & addMemberTeamDTO.getRole()!=null) {
+            EmployeeInTeam employeeInTeam = new EmployeeInTeam();
 
+            employeeInTeam.setEmployee(employeeOptional.get());
+            employeeInTeam.setTeam(teamOptional.get());
+            employeeInTeam.setRole(addMemberTeamDTO.getRole());
+
+            return employeeInTeamRepository.save(employeeInTeam);
+        }
+        return null;
+    }
+
+    @Transactional(readOnly = false)
     public void deleteTeamMember(Long teamId, Long employeeId) {
-        teamRepository.removeEmployeeFromTeam(teamId, employeeId);
+        Optional<Employee> employeeOptional = employeeRepository.findById(employeeId);
+        Optional<Team> teamOptional = teamRepository.findById(teamId);
+        if (employeeOptional.isPresent() & teamOptional.isPresent()) {
+            long rows = employeeInTeamRepository.delete(
+                    EmployeeInTeamSpecification.findByTeamAndEmployeeId(
+                            teamOptional.get(),
+                            employeeOptional.get()
+                    )
+            );
+            System.out.println("Rows in 'employee_in_team' deleted: " + rows);
+        }
     }
 }
 
