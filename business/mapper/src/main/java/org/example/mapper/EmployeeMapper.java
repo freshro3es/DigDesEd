@@ -30,6 +30,7 @@ public class EmployeeMapper {
             return null;
         }
         return new OrderEmployeeDTO(
+                employee.getId(),
                 employee.getFirstName(),
                 employee.getLastName(),
                 employee.getFatherName(),

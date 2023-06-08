@@ -26,6 +26,7 @@ public class TeamMapper {
             return null;
         }
         return new OrderTeamDTO(
+                team.getId(),
                 team.getName()
         );
     }

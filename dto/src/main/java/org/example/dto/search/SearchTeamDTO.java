@@ -1,16 +1,13 @@
 package org.example.dto.search;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Getter
+@Getter @Setter
+@NoArgsConstructor
 public class SearchTeamDTO {
 
-    private final String search;
+    private String search;
 
-    @JsonCreator
-    public SearchTeamDTO(@JsonProperty("search") String search) {
-        this.search = search;
-    }
 }

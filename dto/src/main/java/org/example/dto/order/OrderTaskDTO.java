@@ -1,12 +1,13 @@
 package org.example.dto.order;
 
+import lombok.Setter;
 import org.example.libs.TaskStatus;
 
 import java.util.Date;
 import lombok.Getter;
 import lombok.AllArgsConstructor;
 
-@Getter @AllArgsConstructor
+@Getter @Setter @AllArgsConstructor
 public class OrderTaskDTO {
 
     private int employeeId;

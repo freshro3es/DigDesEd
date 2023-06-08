@@ -1,16 +1,13 @@
 package org.example.dto.order;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 
-@Getter
+@Getter @Setter @AllArgsConstructor
 public class OrderTeamDTO {
 
-    @JsonProperty("firstName")
+    private Long id;
     private String name;
 
-    public OrderTeamDTO(String name) {
-        this.name = name;
-    }
 }

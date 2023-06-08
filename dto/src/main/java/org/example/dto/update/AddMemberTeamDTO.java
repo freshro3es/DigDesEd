@@ -1,22 +1,14 @@
 package org.example.dto.update;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.example.libs.TeamRole;
 
-@Getter
+@Getter @Setter @NoArgsConstructor
 public class AddMemberTeamDTO {
 
-    private final Long employeeId;
-    private final TeamRole role;
+    private Long employeeId;
+    private TeamRole role;
 
-    @JsonCreator
-    public AddMemberTeamDTO(
-            @JsonProperty("employeeId") Long employeeId,
-            @JsonProperty("role") TeamRole role
-    ) {
-        this.employeeId = employeeId;
-        this.role = role;
-    }
 }
