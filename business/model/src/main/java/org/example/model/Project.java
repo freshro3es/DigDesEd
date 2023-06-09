@@ -17,7 +17,10 @@ public class Project implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "code", nullable = false)
+    private String code;
+
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "description")

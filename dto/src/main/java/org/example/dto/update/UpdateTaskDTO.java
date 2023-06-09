@@ -2,20 +2,19 @@ package org.example.dto.update;
 
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.libs.TaskStatus;
+import lombok.ToString;
 
 import java.util.Date;
 import lombok.Getter;
 
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @ToString
 public class UpdateTaskDTO {
 
-    private int employeeId;
-    private int projectId;
+    private Long employeeId;
+    private Long projectId;
     private String name;
     private String description;
-    private TaskStatus status;
-    private int labourHours;
+    private Long labourHours;
     private Date deadline;
 
 }

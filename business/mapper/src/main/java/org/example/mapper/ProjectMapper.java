@@ -3,6 +3,7 @@ package org.example.mapper;
 import org.example.dto.create.CreateProjectDTO;
 import org.example.dto.order.OrderProjectDTO;
 import org.example.dto.update.UpdateProjectDTO;
+import org.example.libs.ProjStatus;
 import org.example.model.Project;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +15,9 @@ public class ProjectMapper {
             return null;
         }
         Project project = new Project();
+        project.setCode(dto.getCode());
         project.setName(dto.getName());
+        project.setStatus(ProjStatus.DRAFT);
         return project;
     }
 
@@ -23,10 +26,12 @@ public class ProjectMapper {
             return null;
         }
         return new OrderProjectDTO(
+                project.getId(),
+                project.getCode(),
                 project.getName(),
                 project.getDescription(),
                 project.getStatus(),
-                project.getTeam().getName()
+                project.getTeam() != null ? project.getTeam().getName() : null
         );
     }
 
@@ -34,8 +39,8 @@ public class ProjectMapper {
         if (dto == null || project == null) {
             return;
         }
+        project.setCode(dto.getCode());
         project.setName(dto.getName());
         project.setDescription(dto.getDescription());
-        project.setStatus(dto.getStatus());
     }
 }

@@ -2,12 +2,13 @@ package org.example.dto.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.example.libs.EmpStatus;
 
 import lombok.Getter;
 import org.example.libs.TeamRole;
 
-@Getter @Setter @AllArgsConstructor
+@Getter @Setter @AllArgsConstructor @ToString
 public class OrderEmployeeInTeamDTO {
 
     private String firstName;

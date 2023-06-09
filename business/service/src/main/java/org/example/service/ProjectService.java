@@ -3,8 +3,8 @@ package org.example.service;
 import org.example.dto.create.CreateProjectDTO;
 import org.example.dto.order.OrderProjectDTO;
 import org.example.dto.search.SearchProjectDTO;
-import org.example.dto.update.StatusProjectDTO;
 import org.example.dto.update.UpdateProjectDTO;
+import org.example.libs.ProjStatus;
 import org.example.mapper.ProjectMapper;
 import org.example.model.Project;
 import org.example.model.Team;
@@ -41,7 +41,6 @@ public class ProjectService {
     }
 
     public List<OrderProjectDTO> search(SearchProjectDTO searchProjectDTO) {
-//        List<Project> projects = projectRepository.search(searchProjectDTO.getSearch());
         List<Project> projects = projectRepository.findAll(
                 ProjectSpecification.findByKeywordAndStatus(
                         searchProjectDTO.getSearch(),
@@ -62,7 +61,7 @@ public class ProjectService {
             Project project = projectOptional.get();
             projectMapper.updateProjectDTOToProject(updateProjectDTO, project);
             if (updateProjectDTO.getTeamId()!=null) {
-                Optional<Team> teamOptional = teamRepository.findById(id);
+                Optional<Team> teamOptional = teamRepository.findById(updateProjectDTO.getTeamId());
                 teamOptional.ifPresent(project::setTeam);
             }
             return projectRepository.save(project);
@@ -78,13 +77,28 @@ public class ProjectService {
         return project;
     }
 
-    public Project changeStatus(Long id, StatusProjectDTO statusProjectDTO) {
+    public Project changeStatus(Long id, ProjStatus status) throws RuntimeException {
         Project project = projectRepository.findById(id).orElse(null);
-        if (project!=null) {
-            project.setStatus(statusProjectDTO.getStatus());
-            return project;
+        if (project == null) {
+            throw new RuntimeException("Project with id = '" + id + "' not found");
         }
-        return null;
+
+        ProjStatus currentStatus = project.getStatus();
+        if (currentStatus.compareTo(status) >= 0) {
+            throw new RuntimeException("Project status '" + project.getStatus() + "' cannot be changed to status '" + status + "'");
+        }
+
+        switch (status) {
+            case DEVELOPING, TESTING, COMPLETED -> {
+                if (status.ordinal() != (currentStatus.ordinal() + 1)) {
+                    throw new RuntimeException("Project status '" + project.getStatus() + "' cannot be changed to status '" + status + "'");
+                }
+            }
+        }
+
+        project.setStatus(status);
+        projectRepository.save(project);
+        return project;
     }
 
 

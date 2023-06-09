@@ -2,11 +2,12 @@ package org.example.dto.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.example.libs.EmpStatus;
 
 import lombok.Getter;
 
-@Getter @Setter @AllArgsConstructor
+@Getter @Setter @AllArgsConstructor @ToString
 public class OrderEmployeeDTO {
 
     private Long id;

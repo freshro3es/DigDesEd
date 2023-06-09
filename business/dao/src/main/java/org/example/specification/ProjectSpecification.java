@@ -12,12 +12,12 @@ public class ProjectSpecification {
     public static Specification<Project> findByKeywordAndStatus(String keyword, List<ProjStatus> statuses) {
         return (root, query, builder) -> {
             Predicate keywordPredicate = builder.or(
-                    builder.like(root.get("name"), "%" + keyword + "%"),
-                    builder.like(root.get("description"), "%" + keyword + "%")
+                    builder.like(root.get("code"), "%" + keyword + "%"),
+                    builder.like(root.get("name"), "%" + keyword + "%")
             );
             Predicate statusPredicate = null;
             if (statuses!=null) {
-                statusPredicate = root.get("empStatus").in(statuses);
+                statusPredicate = root.get("status").in(statuses);
             }
             return statusPredicate != null ? builder.and(keywordPredicate, statusPredicate) : keywordPredicate;
         };

@@ -2,11 +2,12 @@ package org.example.dto.create;
 
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.example.libs.EmpStatus;
 
 import lombok.Getter;
 
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @ToString
 public class CreateEmployeeDTO {
 
     private String firstname;

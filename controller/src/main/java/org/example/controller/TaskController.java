@@ -1,12 +1,12 @@
 package org.example.controller;
 
-import org.example.dto.create.CreateProjectDTO;
-import org.example.dto.order.OrderProjectDTO;
+import org.example.dto.create.CreateTaskDTO;
+import org.example.dto.order.OrderTaskDTO;
 import org.example.dto.order.StackTraceDTO;
-import org.example.dto.search.SearchProjectDTO;
-import org.example.dto.update.UpdateProjectDTO;
-import org.example.libs.ProjStatus;
-import org.example.service.ProjectService;
+import org.example.dto.search.SearchTaskDTO;
+import org.example.dto.update.UpdateTaskDTO;
+import org.example.libs.TaskStatus;
+import org.example.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,55 +17,54 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/projects")
-public class ProjectController {
+@RequestMapping("/tasks")
+public class TaskController {
 
     @Autowired
-    private ProjectService projectService;
+    private TaskService taskService;
 
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<OrderProjectDTO> findAll() {
-        return projectService.findAll();
+    public List<OrderTaskDTO> findAll() {
+        return taskService.findAll();
     }
 
-
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public OrderProjectDTO findById(@PathVariable Long id) {
-        return projectService.findById(id);
+    public OrderTaskDTO findById(@PathVariable Long id) {
+        return taskService.findById(id);
     }
 
     @PostMapping(value = "/filter", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<OrderProjectDTO> search(@RequestBody SearchProjectDTO searchProjectDTO) {
-        return projectService.search(searchProjectDTO);
+    public List<OrderTaskDTO> search(@RequestBody SearchTaskDTO searchTaskDTO) {
+        return taskService.search(searchTaskDTO);
     }
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody CreateProjectDTO createProjectDTO) {
-        projectService.save(createProjectDTO);
+    public void create(@RequestBody CreateTaskDTO createTaskDTO) {
+        taskService.save(createTaskDTO);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable Long id, @RequestBody UpdateProjectDTO updateProjectDTO) {
-        projectService.update(id, updateProjectDTO);
+    public void update(@PathVariable Long id, @RequestBody UpdateTaskDTO updateTaskDTO) {
+        taskService.update(id, updateTaskDTO);
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id) {
-        projectService.delete(id);
+        taskService.delete(id);
     }
 
     @PutMapping(value = "/{id}/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public StackTraceDTO<Map<String, String>> changeStatus(@PathVariable Long id, @PathVariable ProjStatus status) {
+    public StackTraceDTO<Map<String, String>> changeStatus(@PathVariable Long id, @PathVariable TaskStatus status) {
         Map<String, String> data = new HashMap<>() {{
             put("Id", id.toString());
-            put("Project status", status.toString());
+            put("Task status", status.toString());
         }};
         try {
-            projectService.changeStatus(id, status);
+            taskService.changeStatus(id, status);
         } catch (RuntimeException e) {
             return new StackTraceDTO<>(data, false, e.toString());
         }

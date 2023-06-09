@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS team
 CREATE TABLE IF NOT EXISTS project
 (
     id serial PRIMARY KEY,
-    fk_team int NOT NULL,
+    fk_team int,
+    code character varying(30) NOT NULL UNIQUE,
     name character varying(50),
     description text,
     status character varying(30) NOT NULL,
@@ -39,51 +40,6 @@ CREATE TABLE IF NOT EXISTS employee_in_team
     CONSTRAINT fk_employee FOREIGN KEY (fk_employee) REFERENCES employee (id)
 );
 
--- CREATE TABLE IF NOT EXISTS employee_in_team
--- (
---     fk_team bigint NOT NULL,
---     fk_employee bigint NOT NULL,
---     role smallint NOT NULL,
---     CONSTRAINT fk_team FOREIGN KEY (fk_team) REFERENCES team (id),
---     CONSTRAINT fk_employee FOREIGN KEY (fk_employee) REFERENCES employee (id)
--- );
-
--- CREATE TABLE IF NOT EXISTS task
--- (
---     id serial PRIMARY KEY,
---     name character varying(50) NOT NULL,
---     description text,
---     fk_employee int,
---     fk_project int,
---     labour_hours INTERVAL,
---     deadline date NOT NULL,
---     status character varying(30) NOT NULL,
---     author_id int NOT NULL,
---     author character varying(50) NOT NULL,
---     creation_date date NOT NULL,
---     update_date date NOT NULL,
---     CONSTRAINT fk_project FOREIGN KEY (fk_project) REFERENCES project (id),
---     CONSTRAINT fk_employee FOREIGN KEY (fk_employee) REFERENCES employee (id)
--- );
-
--- CREATE TABLE IF NOT EXISTS task
--- (
---     id serial PRIMARY KEY,
---     name character varying(50) NOT NULL,
---     description text,
---     fk_employee int,
---     fk_project int,
---     labour_hours numeric(21,0),
---     deadline date NOT NULL,
---     status character varying(30) NOT NULL,
---     author_id int NOT NULL,
---     author character varying(50) NOT NULL,
---     creation_date date NOT NULL,
---     update_date date NOT NULL,
---     CONSTRAINT fk_project FOREIGN KEY (fk_project) REFERENCES project (id),
---     CONSTRAINT fk_employee FOREIGN KEY (fk_employee) REFERENCES employee (id)
--- );
-
 CREATE TABLE IF NOT EXISTS task
 (
     id serial PRIMARY KEY,
@@ -95,7 +51,7 @@ CREATE TABLE IF NOT EXISTS task
     deadline timestamp(6) NOT NULL,
     status character varying(30) NOT NULL,
     author_id int NOT NULL,
-    author character varying(50) NOT NULL,
+    author character varying(50),
     creation_date timestamp(6) NOT NULL,
     update_date timestamp(6) NOT NULL,
     CONSTRAINT fk_project FOREIGN KEY (fk_project) REFERENCES project (id),
@@ -107,10 +63,10 @@ VALUES ('VTEC'),
        ('GOTY'),
        ('ОАО ЖирАвтоТранс');
 
-INSERT INTO project (fk_team, name, description, status)
-VALUES (1, 'Variable valve Timing and lift Electronic Control', '---', 'DEVELOPING'),
-       (2, 'Game Of The Year', 'Lets just attach the cart to the shield', 'DRAFT'),
-       (3, 'Автотранспортная ИС', 'ИС для автотранспорта', 'TESTING');
+INSERT INTO project (fk_team, code, name, description, status)
+VALUES (1, 'XX-99-AA', 'Variable valve Timing and lift Electronic Control', '---', 'DEVELOPING'),
+       (2, 'ZZ-56-ER', 'Game Of The Year', 'Lets just attach the cart to the shield', 'DRAFT'),
+       (3, 'CC-73-HT','Автотранспортная ИС', 'ИС для автотранспорта', 'TESTING');
 
 INSERT INTO employee (firstname, lastname, fathername, position, account, email, status, password, is_temporary_pwd)
 VALUES
@@ -141,22 +97,6 @@ VALUES
     (3, 10, 'ANALYST'),
     (3, 11, 'TESTER'),
     (3, 12, 'PROGRAMMER');
-
--- INSERT INTO employee_in_team
--- VALUES
---     (1, 1, 1),
---     (1, 2, 2),
---     (1, 3, 4),
---     (1, 4, 3),
---     (2, 5, 1),
---     (2, 6, 2),
---     (2, 7, 4),
---     (2, 8, 3),
---     (3, 9, 1),
---     (3, 10, 2),
---     (3, 11, 4),
---     (3, 12, 3);
-
 
 -- INSERT INTO task (name, description, fk_employee, fk_project, labour_hours, deadline, status, author_id, author, creation_date, update_date)
 -- VALUES

@@ -7,7 +7,6 @@ import org.example.dto.search.SearchTeamDTO;
 import org.example.dto.update.AddMemberTeamDTO;
 import org.example.dto.update.UpdateTeamDTO;
 import org.example.mapper.EmployeeInTeamMapper;
-import org.example.mapper.EmployeeMapper;
 import org.example.mapper.TeamMapper;
 import org.example.model.Employee;
 import org.example.model.EmployeeInTeam;
@@ -16,6 +15,7 @@ import org.example.repository.EmployeeInTeamRepository;
 import org.example.repository.EmployeeRepository;
 import org.example.repository.TeamRepository;
 import org.example.specification.EmployeeInTeamSpecification;
+import org.example.specification.TeamSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,7 +50,9 @@ public class TeamService {
     }
 
     public  List<OrderTeamDTO> search(SearchTeamDTO searchTeamDTO) {
-        List<Team> teams = teamRepository.search(searchTeamDTO.getSearch());
+        List<Team> teams = teamRepository.findAll(
+                TeamSpecification.findByKeyword(searchTeamDTO.getSearch())
+        );
         return teams.stream().map(teamMapper::toOrderTeamDTO).collect(Collectors.toList());
     }
 
@@ -76,8 +78,6 @@ public class TeamService {
     }
 
     public List<OrderEmployeeInTeamDTO> getTeamMembers(Long teamId) {
-//        List<Employee> employees = teamRepository.getEmployeesInTeam(teamId);
-
         List<EmployeeInTeam> employeesInTeam = employeeInTeamRepository.findAll(
                 EmployeeInTeamSpecification.findAllByTeamId(teamRepository.findById(teamId).get())
         );
