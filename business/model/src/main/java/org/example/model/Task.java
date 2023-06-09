@@ -34,9 +34,6 @@ public class Task implements Serializable {
     @Column(name = "author_id")
     private Long authorId;
 
-    @Column(name = "author")
-    private String author;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private TaskStatus status;
@@ -60,7 +57,6 @@ public class Task implements Serializable {
                 String name,
                 String description,
                 Long authorId,
-                String author,
                 TaskStatus status,
                 Date creationDate,
                 Long labourHours,
@@ -71,7 +67,6 @@ public class Task implements Serializable {
         this.name = name;
         this.description = description;
         this.authorId = authorId;
-        this.author = author;
         this.status = status;
         this.creationDate = creationDate;
         this.labourHours = labourHours;
