@@ -6,6 +6,7 @@ import org.example.dto.order.StackTraceDTO;
 import org.example.dto.search.SearchTaskDTO;
 import org.example.dto.update.UpdateTaskDTO;
 import org.example.libs.TaskStatus;
+import org.example.mapper.TaskMapper;
 import org.example.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,20 +41,35 @@ public class TaskController {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody CreateTaskDTO createTaskDTO) {
-        taskService.save(createTaskDTO);
+    public StackTraceDTO<OrderTaskDTO> create(@RequestBody CreateTaskDTO createTaskDTO) {
+        OrderTaskDTO orderTaskDTO = taskService.save(createTaskDTO);
+        return new StackTraceDTO<>(
+                orderTaskDTO,
+                orderTaskDTO != null,
+                orderTaskDTO != null ? null : "Wrong data"
+        );
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable Long id, @RequestBody UpdateTaskDTO updateTaskDTO) {
-        taskService.update(id, updateTaskDTO);
+    public StackTraceDTO<OrderTaskDTO> update(@PathVariable Long id, @RequestBody UpdateTaskDTO updateTaskDTO) {
+        OrderTaskDTO orderTaskDTO = taskService.update(id, updateTaskDTO);
+        return new StackTraceDTO<>(
+                orderTaskDTO,
+                orderTaskDTO != null,
+                orderTaskDTO != null ? null : "Wrong data"
+        );
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable Long id) {
-        taskService.delete(id);
+    public StackTraceDTO<OrderTaskDTO> delete(@PathVariable Long id) {
+        OrderTaskDTO orderTaskDTO = taskService.delete(id);
+        return new StackTraceDTO<>(
+                orderTaskDTO,
+                orderTaskDTO != null,
+                orderTaskDTO != null ? null : "Wrong id"
+        );
     }
 
     @PutMapping(value = "/{id}/{status}", produces = MediaType.APPLICATION_JSON_VALUE)

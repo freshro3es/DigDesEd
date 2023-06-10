@@ -41,20 +41,36 @@ public class ProjectController {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody CreateProjectDTO createProjectDTO) {
-        projectService.save(createProjectDTO);
+    public StackTraceDTO<OrderProjectDTO> create(@RequestBody CreateProjectDTO createProjectDTO) {
+        OrderProjectDTO orderProjectDTO = projectService.save(createProjectDTO);
+        return new StackTraceDTO<>(
+                orderProjectDTO,
+                orderProjectDTO != null,
+                orderProjectDTO != null ? null : "Wrong data"
+        );
+
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable Long id, @RequestBody UpdateProjectDTO updateProjectDTO) {
-        projectService.update(id, updateProjectDTO);
+    public StackTraceDTO<OrderProjectDTO> update(@PathVariable Long id, @RequestBody UpdateProjectDTO updateProjectDTO) {
+        OrderProjectDTO orderProjectDTO = projectService.update(id, updateProjectDTO);
+        return new StackTraceDTO<>(
+                orderProjectDTO,
+                orderProjectDTO != null,
+                orderProjectDTO != null ? null : "Wrong data"
+        );
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable Long id) {
-        projectService.delete(id);
+    public StackTraceDTO<OrderProjectDTO> delete(@PathVariable Long id) {
+        OrderProjectDTO orderProjectDTO = projectService.delete(id);
+        return new StackTraceDTO<>(
+                orderProjectDTO,
+                orderProjectDTO != null,
+                orderProjectDTO != null ? null : "Wrong id"
+        );
     }
 
     @PutMapping(value = "/{id}/{status}", produces = MediaType.APPLICATION_JSON_VALUE)

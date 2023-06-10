@@ -8,6 +8,8 @@ import org.example.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Component
 public class TaskMapper {
 
@@ -58,7 +60,7 @@ public class TaskMapper {
         task.setDescription(dto.getDescription());
         task.setLabourHours(dto.getLabourHours());
         task.setDeadline(dto.getDeadline());
-
+        task.setUpdateDate(new Date());
     }
 
 }

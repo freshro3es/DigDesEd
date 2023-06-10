@@ -3,6 +3,7 @@ package org.example.controller;
 import org.example.dto.create.CreateTeamDTO;
 import org.example.dto.order.OrderEmployeeInTeamDTO;
 import org.example.dto.order.OrderTeamDTO;
+import org.example.dto.order.StackTraceDTO;
 import org.example.dto.search.SearchTeamDTO;
 import org.example.dto.update.AddMemberTeamDTO;
 import org.example.dto.update.UpdateTeamDTO;
@@ -38,20 +39,35 @@ public class TeamController {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void createTeam(@RequestBody CreateTeamDTO createTeamDTO) {
-        teamService.save(createTeamDTO);
+    public StackTraceDTO<OrderTeamDTO> createTeam(@RequestBody CreateTeamDTO createTeamDTO) {
+        OrderTeamDTO orderTeamDTO = teamService.save(createTeamDTO);
+        return new StackTraceDTO<>(
+                orderTeamDTO,
+                orderTeamDTO != null,
+                orderTeamDTO != null ? null : "Wrong data"
+        );
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public void updateTeam(@PathVariable Long id, @RequestBody UpdateTeamDTO updateTeamDTO) {
-        teamService.update(id, updateTeamDTO);
+    public StackTraceDTO<OrderTeamDTO> updateTeam(@PathVariable Long id, @RequestBody UpdateTeamDTO updateTeamDTO) {
+        OrderTeamDTO orderTeamDTO = teamService.update(id, updateTeamDTO);
+        return new StackTraceDTO<>(
+                orderTeamDTO,
+                orderTeamDTO != null,
+                orderTeamDTO != null ? null : "Wrong data"
+        );
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public void deleteTeam(@PathVariable Long id) {
-        teamService.delete(id);
+    public StackTraceDTO<OrderTeamDTO> deleteTeam(@PathVariable Long id) {
+        OrderTeamDTO orderTeamDTO = teamService.delete(id);
+        return new StackTraceDTO<>(
+                orderTeamDTO,
+                orderTeamDTO != null,
+                orderTeamDTO != null ? null : "Wrong data"
+        );
     }
 
 

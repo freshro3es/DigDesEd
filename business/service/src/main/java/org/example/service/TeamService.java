@@ -56,25 +56,25 @@ public class TeamService {
         return teams.stream().map(teamMapper::toOrderTeamDTO).collect(Collectors.toList());
     }
 
-    public Team save(CreateTeamDTO createTeamDTO) {
+    public OrderTeamDTO save(CreateTeamDTO createTeamDTO) {
         Team team = teamMapper.toTeam(createTeamDTO);
-        return teamRepository.save(team);
+        return teamMapper.toOrderTeamDTO(teamRepository.save(team));
     }
 
-    public Team update(Long id, UpdateTeamDTO updateTeamDTO) {
+    public OrderTeamDTO update(Long id, UpdateTeamDTO updateTeamDTO) {
         Optional<Team> teamOptional = teamRepository.findById(id);
         if (teamOptional.isPresent()) {
             Team team = teamOptional.get();
             teamMapper.updateTeamDTOtoTeam(updateTeamDTO, team);
-            return teamRepository.save(team);
+            return teamMapper.toOrderTeamDTO(teamRepository.save(team));
         }
         return null;
     }
 
-    public Team delete(Long id) {
+    public OrderTeamDTO delete(Long id) {
         Team team = teamRepository.findById(id).orElse(null);
         teamRepository.deleteById(id);
-        return team;
+        return teamMapper.toOrderTeamDTO(team);
     }
 
     public List<OrderEmployeeInTeamDTO> getTeamMembers(Long teamId) {

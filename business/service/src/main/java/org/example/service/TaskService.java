@@ -41,30 +41,30 @@ public class TaskService{
         return tasks.stream().map(taskMapper::toOrderTaskDTO).collect(Collectors.toList());
     }
 
-    public Task save(CreateTaskDTO createTaskDTO) {
+    public OrderTaskDTO save(CreateTaskDTO createTaskDTO) {
         Task task = taskMapper.toTask(createTaskDTO);
-        return taskRepository.save(task);
+        return taskMapper.toOrderTaskDTO(taskRepository.save(task));
     }
 
-    public Task update(Long id, UpdateTaskDTO updateTaskDTO) {
+    public OrderTaskDTO update(Long id, UpdateTaskDTO updateTaskDTO) {
         Optional<Task> taskOptional = taskRepository.findById(id);
         if (taskOptional.isPresent()) {
             Task task = taskOptional.get();
             taskMapper.updateTaskDTOToTask(updateTaskDTO, task);
-            return taskRepository.save(task);
+            return taskMapper.toOrderTaskDTO(taskRepository.save(task));
         }
         return null;
     }
 
-    public Task delete(Long id) {
+    public OrderTaskDTO delete(Long id) {
         Task task = taskRepository.findById(id).orElse(null);
         if (task != null) {
             taskRepository.deleteById(id);
         }
-        return task;
+        return taskMapper.toOrderTaskDTO(task);
     }
 
-    public Task changeStatus(Long id, TaskStatus status) throws RuntimeException {
+    public OrderTaskDTO changeStatus(Long id, TaskStatus status) throws RuntimeException {
         Task task = taskRepository.findById(id).orElse(null);
         if (task == null) {
             throw new RuntimeException("Project with id = '" + id + "' not found");
@@ -85,6 +85,6 @@ public class TaskService{
 
         task.setStatus(status);
         taskRepository.save(task);
-        return task;
+        return taskMapper.toOrderTaskDTO(task);
     }
 }

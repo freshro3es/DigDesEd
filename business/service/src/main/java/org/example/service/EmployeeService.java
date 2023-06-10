@@ -44,27 +44,27 @@ public class EmployeeService {
         return employees.stream().map(employeeMapper::toOrderEmployeeDTO).collect(Collectors.toList());
     }
 
-    public Employee save(CreateEmployeeDTO createEmployeeDTO) {
+    public OrderEmployeeDTO save(CreateEmployeeDTO createEmployeeDTO) {
         Employee employee = employeeMapper.toEmployee(createEmployeeDTO);
-        return employeeRepository.save(employee);
+        return employeeMapper.toOrderEmployeeDTO(employeeRepository.save(employee));
     }
 
-    public Employee update(Long id, UpdateEmployeeDTO updateEmployeeDTO) {
+    public OrderEmployeeDTO update(Long id, UpdateEmployeeDTO updateEmployeeDTO) {
         Optional<Employee> employeeOptional = employeeRepository.findById(id);
         if (employeeOptional.isPresent()) {
             Employee employee = employeeOptional.get();
             employeeMapper.updateEmployeeDTOToEmployee(updateEmployeeDTO, employee);
             employeeRepository.save(employee);
-            return employee;
+            return employeeMapper.toOrderEmployeeDTO(employee);
         }
         return null;
     }
 
-    public Employee delete(Long id) {
+    public OrderEmployeeDTO delete(Long id) {
         Employee employee = employeeRepository.findById(id).orElse(null);
         if (employee!=null) {
             employeeRepository.deleteById(id);
         }
-        return employee;
+        return employeeMapper.toOrderEmployeeDTO(employee);
     }
 }

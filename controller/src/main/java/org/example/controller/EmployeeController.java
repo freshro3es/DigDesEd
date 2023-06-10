@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.dto.create.CreateEmployeeDTO;
 import org.example.dto.order.OrderEmployeeDTO;
+import org.example.dto.order.StackTraceDTO;
 import org.example.dto.search.SearchEmployeeDTO;
 import org.example.dto.update.UpdateEmployeeDTO;
 import org.example.service.EmployeeService;
@@ -37,19 +38,34 @@ public class EmployeeController {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void createEmployee(@RequestBody CreateEmployeeDTO createEmployeeDTO) {
-        employeeService.save(createEmployeeDTO);
+    public StackTraceDTO<OrderEmployeeDTO> createEmployee(@RequestBody CreateEmployeeDTO createEmployeeDTO) {
+        OrderEmployeeDTO orderEmployeeDTO = employeeService.save(createEmployeeDTO);
+        return new StackTraceDTO<>(
+                orderEmployeeDTO,
+                orderEmployeeDTO != null,
+                orderEmployeeDTO != null ? null : "Wrong data"
+        );
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public void updateEmployee(@PathVariable Long id, @RequestBody UpdateEmployeeDTO updateEmployeeDTO) {
-        employeeService.update(id, updateEmployeeDTO);
+    public StackTraceDTO<OrderEmployeeDTO> updateEmployee(@PathVariable Long id, @RequestBody UpdateEmployeeDTO updateEmployeeDTO) {
+        OrderEmployeeDTO orderEmployeeDTO = employeeService.update(id, updateEmployeeDTO);
+        return new StackTraceDTO<>(
+                orderEmployeeDTO,
+                orderEmployeeDTO != null,
+                orderEmployeeDTO != null ? null : "Wrong data"
+        );
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public void deleteEmployee(@PathVariable Long id) {
-        employeeService.delete(id);
+    public StackTraceDTO<OrderEmployeeDTO> deleteEmployee(@PathVariable Long id) {
+        OrderEmployeeDTO orderEmployeeDTO = employeeService.delete(id);
+        return new StackTraceDTO<>(
+                orderEmployeeDTO,
+                orderEmployeeDTO != null,
+                orderEmployeeDTO != null ? null : "Wrong id"
+        );
     }
 }

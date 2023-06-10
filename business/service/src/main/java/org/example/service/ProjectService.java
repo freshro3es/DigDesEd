@@ -50,12 +50,12 @@ public class ProjectService {
         return projects.stream().map(projectMapper::toOrderProjectDTO).collect(Collectors.toList());
     }
 
-    public Project save(CreateProjectDTO createProjectDTO) {
+    public OrderProjectDTO save(CreateProjectDTO createProjectDTO) {
         Project project = projectMapper.toProject(createProjectDTO);
-        return projectRepository.save(project);
+        return projectMapper.toOrderProjectDTO(projectRepository.save(project));
     }
 
-    public Project update(Long id, UpdateProjectDTO updateProjectDTO) {
+    public OrderProjectDTO update(Long id, UpdateProjectDTO updateProjectDTO) {
         Optional<Project> projectOptional = projectRepository.findById(id);
         if (projectOptional.isPresent()) {
             Project project = projectOptional.get();
@@ -64,20 +64,20 @@ public class ProjectService {
                 Optional<Team> teamOptional = teamRepository.findById(updateProjectDTO.getTeamId());
                 teamOptional.ifPresent(project::setTeam);
             }
-            return projectRepository.save(project);
+            return projectMapper.toOrderProjectDTO(projectRepository.save(project));
         }
         return null;
     }
 
-    public Project delete(Long id) {
+    public OrderProjectDTO delete(Long id) {
         Project project = projectRepository.findById(id).orElse(null);
         if (project != null) {
             projectRepository.deleteById(id);
         }
-        return project;
+        return projectMapper.toOrderProjectDTO(project);
     }
 
-    public Project changeStatus(Long id, ProjStatus status) throws RuntimeException {
+    public OrderProjectDTO changeStatus(Long id, ProjStatus status) throws RuntimeException {
         Project project = projectRepository.findById(id).orElse(null);
         if (project == null) {
             throw new RuntimeException("Project with id = '" + id + "' not found");
@@ -98,7 +98,7 @@ public class ProjectService {
 
         project.setStatus(status);
         projectRepository.save(project);
-        return project;
+        return projectMapper.toOrderProjectDTO(project);
     }
 
 
