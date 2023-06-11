@@ -9,6 +9,7 @@ public class EmployeeInTeamMapper {
     public static OrderEmployeeInTeamDTO toOrderEmployeeInTeamDTO(EmployeeInTeam employeeInTeam) {
         Employee employee = employeeInTeam.getEmployee();
         return new OrderEmployeeInTeamDTO(
+                employee.getId(),
                 employee.getFirstName(),
                 employee.getLastName(),
                 employee.getFatherName(),
