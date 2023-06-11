@@ -9,9 +9,9 @@ import org.example.libs.TaskStatus;
 import java.util.Date;
 import lombok.Getter;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 @Getter @Setter @NoArgsConstructor @ToString
 public class CreateTaskDTO {
