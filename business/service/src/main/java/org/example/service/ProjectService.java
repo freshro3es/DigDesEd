@@ -1,0 +1,105 @@
+package org.example.service;
+
+import org.example.dto.create.CreateProjectDTO;
+import org.example.dto.order.OrderProjectDTO;
+import org.example.dto.search.SearchProjectDTO;
+import org.example.dto.update.UpdateProjectDTO;
+import org.example.libs.ProjStatus;
+import org.example.mapper.ProjectMapper;
+import org.example.model.Project;
+import org.example.model.Team;
+import org.example.repository.ProjectRepository;
+import org.example.repository.TeamRepository;
+import org.example.specification.ProjectSpecification;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+public class ProjectService {
+
+    @Autowired
+    private ProjectRepository projectRepository;
+
+    @Autowired
+    private TeamRepository teamRepository;
+
+    @Autowired
+    private ProjectMapper projectMapper;
+
+    public List<OrderProjectDTO> findAll() {
+        List<Project> projects = projectRepository.findAll();
+        return projects.stream().map(projectMapper::toOrderProjectDTO).collect(Collectors.toList());
+    }
+
+    public OrderProjectDTO findById(Long id) {
+        Optional<Project> projectOptional = projectRepository.findById(id);
+        return projectOptional.map(project -> projectMapper.toOrderProjectDTO(project)).orElse(null);
+    }
+
+    public List<OrderProjectDTO> search(SearchProjectDTO searchProjectDTO) {
+        List<Project> projects = projectRepository.findAll(
+                ProjectSpecification.findByKeywordAndStatus(
+                        searchProjectDTO.getSearch(),
+                        searchProjectDTO.getStatuses()
+                )
+        );
+        return projects.stream().map(projectMapper::toOrderProjectDTO).collect(Collectors.toList());
+    }
+
+    public OrderProjectDTO save(CreateProjectDTO createProjectDTO) {
+        Project project = projectMapper.toProject(createProjectDTO);
+        return projectMapper.toOrderProjectDTO(projectRepository.save(project));
+    }
+
+    public OrderProjectDTO update(Long id, UpdateProjectDTO updateProjectDTO) {
+        Optional<Project> projectOptional = projectRepository.findById(id);
+        if (projectOptional.isPresent()) {
+            Project project = projectOptional.get();
+            projectMapper.updateProjectDTOToProject(updateProjectDTO, project);
+            if (updateProjectDTO.getTeamId()!=null) {
+                Optional<Team> teamOptional = teamRepository.findById(updateProjectDTO.getTeamId());
+                teamOptional.ifPresent(project::setTeam);
+            }
+            return projectMapper.toOrderProjectDTO(projectRepository.save(project));
+        }
+        return null;
+    }
+
+    public OrderProjectDTO delete(Long id) {
+        Project project = projectRepository.findById(id).orElse(null);
+        if (project != null) {
+            projectRepository.deleteById(id);
+        }
+        return projectMapper.toOrderProjectDTO(project);
+    }
+
+    public OrderProjectDTO changeStatus(Long id, ProjStatus status) throws RuntimeException {
+        Project project = projectRepository.findById(id).orElse(null);
+        if (project == null) {
+            throw new RuntimeException("Project with id = '" + id + "' not found");
+        }
+
+        ProjStatus currentStatus = project.getStatus();
+        if (currentStatus.compareTo(status) >= 0) {
+            throw new RuntimeException("Project status '" + project.getStatus() + "' cannot be changed to status '" + status + "'");
+        }
+
+        switch (status) {
+            case DEVELOPING, TESTING, COMPLETED -> {
+                if (status.ordinal() != (currentStatus.ordinal() + 1)) {
+                    throw new RuntimeException("Project status '" + project.getStatus() + "' cannot be changed to status '" + status + "'");
+                }
+            }
+        }
+
+        project.setStatus(status);
+        projectRepository.save(project);
+        return projectMapper.toOrderProjectDTO(project);
+    }
+
+
+}

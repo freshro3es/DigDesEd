@@ -1,9 +1,13 @@
 package org.example.view;
 
-//Пока что в этом классе проверяю, работает ли функциональность, которую я пишу
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.PropertySource;
+
+@SpringBootApplication(scanBasePackages = "org.example.config")
+@PropertySource("classpath:application.properties")
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
-
+        SpringApplication.run(App.class, args);
     }
 }

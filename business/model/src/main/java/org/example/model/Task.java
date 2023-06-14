@@ -5,47 +5,68 @@ import org.example.libs.TaskStatus;
 import java.io.Serializable;
 import java.util.Date;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Getter @Setter @ToString
+@Entity
+@Table(name = "task")
+@Getter @Setter @ToString @NoArgsConstructor
 public class Task implements Serializable {
 
-    private final int id;
-    private int employeeId;
-    private int projectId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_employee")
+    private Employee employee;
+
+    @Column(name = "fk_project")
+    private Long projectId;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "description")
     private String description;
-    private int authorId;
-    private String author;
+
+    @Column(name = "author_id")
+    private Long authorId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private TaskStatus status;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_date")
     private Date creationDate;
-    private int labourHours;
-    @Setter(lombok.AccessLevel.NONE)
+
+    @Column(name = "labour_hours") //TODO не ясно, как поведет себя это поле, нужно протестировать
+    private Long labourHours;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "deadline")
     private Date deadline;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "update_date")
     private Date updateDate;
 
-    public Task(int id,
-                int employeeId,
-                int projectId,
+    public Task(Long projectId,
                 String name,
                 String description,
-                int authorId,
-                String author,
+                Long authorId,
                 TaskStatus status,
                 Date creationDate,
-                int labourHours,
+                Long labourHours,
                 Date deadline,
                 Date updateDate
     ) {
-        this.id = id;
-        this.employeeId = employeeId;
         this.projectId = projectId;
         this.name = name;
         this.description = description;
         this.authorId = authorId;
-        this.author = author;
         this.status = status;
         this.creationDate = creationDate;
         this.labourHours = labourHours;
@@ -63,7 +84,8 @@ public class Task implements Serializable {
 
     public boolean isValidDeadline(Date deadline) {
         long deadlineMs = deadline.getTime();
-        long expectedDeadlineMs = getCreationDate().getTime() + ((long) getLabourHours() * 60 * 60 * 1000);
+        long expectedDeadlineMs = getCreationDate().getTime() + (getLabourHours() * 60 * 60 * 1000);
         return deadlineMs > expectedDeadlineMs;
     }
+
 }

@@ -15,7 +15,7 @@
         <module>business/mapper</module>
         <module>dto</module>
         <module>view</module>
-        <module>business/Service</module>
+        <module>business/service</module>
         <module>libs</module>
     </modules>
 
@@ -48,6 +48,11 @@
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-core</artifactId>
                 <version>${liquibase-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>1.7.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
