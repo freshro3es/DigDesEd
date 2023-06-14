@@ -3,14 +3,19 @@ package org.example.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.libs.EmpStatus;
+import org.example.libs.UserRole;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "employee")
 @Getter @Setter @ToString @NoArgsConstructor @AllArgsConstructor
-public class Employee implements Serializable {
+public class Employee implements Serializable, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,8 +59,6 @@ public class Employee implements Serializable {
     @Column(name = "is_temporary_pwd")
     private boolean isTemporaryPwd;
 
-//    @Enumerated(EnumType.STRING)
-//    private TeamRole role;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<EmployeeInTeam> employeeInTeams;
@@ -66,7 +69,37 @@ public class Employee implements Serializable {
     })
     private List<Task> tasks;
 
-//    @ManyToMany(mappedBy="employees")
-//    private List<Team> teams;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
 }
