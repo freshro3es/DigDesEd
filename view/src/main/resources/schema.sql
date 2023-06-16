@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS employee
     email character varying(50) NOT NULL,
     status character varying(30) NOT NULL,
     password character varying(50) NOT NULL,
-    is_temporary_pwd bool NOT NULL
+    is_temporary_pwd bool NOT NULL,
+    role character varying(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS team
@@ -67,20 +68,20 @@ VALUES (1, 'XX-99-AA', 'Variable valve Timing and lift Electronic Control', '---
        (2, 'ZZ-56-ER', 'Game Of The Year', 'Lets just attach the cart to the shield', 'DRAFT'),
        (3, 'CC-73-HT','Автотранспортная ИС', 'ИС для автотранспорта', 'TESTING');
 
-INSERT INTO employee (firstname, lastname, fathername, position, account, email, status, password, is_temporary_pwd)
+INSERT INTO employee (firstname, lastname, fathername, position, account, email, status, password, is_temporary_pwd, role)
 VALUES
-    ('Иван', 'Иванов', 'Петрович', 'менеджер', 'ivan747', 'ivan@company.com', 'ACTIVE', 'qwerty123', FALSE),
-    ('Петр', 'Петров', 'Иванович','разработчик', 'petr1989', 'petr@company.com', 'ACTIVE', 'securepass', FALSE),
-    ('Анна', 'Сидорова','Григорьевна', 'дизайнер', 'anna-s', 'anna@company.com', 'ACTIVE', 'qwerty', FALSE),
-    ('Дмитрий', 'Смирнов', 'Анатольевич', 'аналитик', 'dmitriy123', 'dmitriy@company.com', 'ACTIVE', 'myPassword', FALSE),
-    ('Анастасия', 'Королева', 'Павловна', 'менеджер', 'anastasia', 'anastasia@company.com', 'ACTIVE', '1234Password', FALSE),
-    ('Артем', 'Кузнецов', 'Александрович', 'тестировщик', 'artem-test', 'artem@company.com', 'ACTIVE', 'bestPassword', FALSE),
-    ('Евгений', 'Миронов', 'Сергеевич', 'менеджер', 'evgeniy1987', 'evgeniy@company.com', 'ACTIVE', 'coolPassword', FALSE),
-    ('Наталья', 'Сергеева', 'Игоревна', 'разработчик', 'natalya81', 'natalya@company.com', 'ACTIVE', 'newPassword', FALSE),
-    ('Сергей', 'Ковалев', 'Григорьевич', 'аналитик', 'sergey-k', 'sergey@company.com', 'ACTIVE', 'strongPassword', FALSE),
-    ('Мария', 'Козлова', 'Александровна', 'дизайнер', 'mariya1985', 'mariya@company.com', 'ACTIVE', 'amazingPassword', FALSE),
-    ('Ирина', 'Николаева', 'Петровна', 'менеджер', 'irina2010', 'irina@company.com', 'ACTIVE', 'pass12345', FALSE),
-    ('Василий', 'Зайцев', 'Владимирович', 'разработчик', 'vasiliy1988', 'vasiliy@company.com', 'ACTIVE', 'password123', FALSE);
+    ('Иван', 'Иванов', 'Петрович', 'менеджер', 'ivan747', 'ivan@company.com', 'ACTIVE', 'qwerty123', FALSE, 'ADMIN'),
+    ('Петр', 'Петров', 'Иванович','разработчик', 'petr1989', 'petr@company.com', 'ACTIVE', 'securepass', FALSE, 'USER'),
+    ('Анна', 'Сидорова','Григорьевна', 'дизайнер', 'anna-s', 'anna@company.com', 'ACTIVE', 'qwerty', FALSE, 'USER'),
+    ('Дмитрий', 'Смирнов', 'Анатольевич', 'аналитик', 'dmitriy123', 'dmitriy@company.com', 'ACTIVE', 'myPassword', FALSE, 'USER'),
+    ('Анастасия', 'Королева', 'Павловна', 'менеджер', 'anastasia', 'anastasia@company.com', 'ACTIVE', '1234Password', FALSE, 'USER'),
+    ('Артем', 'Кузнецов', 'Александрович', 'тестировщик', 'artem-test', 'artem@company.com', 'ACTIVE', 'bestPassword', FALSE, 'USER'),
+    ('Евгений', 'Миронов', 'Сергеевич', 'менеджер', 'evgeniy1987', 'evgeniy@company.com', 'ACTIVE', 'coolPassword', FALSE, 'USER'),
+    ('Наталья', 'Сергеева', 'Игоревна', 'разработчик', 'natalya81', 'natalya@company.com', 'ACTIVE', 'newPassword', FALSE, 'USER'),
+    ('Сергей', 'Ковалев', 'Григорьевич', 'аналитик', 'sergey-k', 'sergey@company.com', 'ACTIVE', 'strongPassword', FALSE, 'USER'),
+    ('Мария', 'Козлова', 'Александровна', 'дизайнер', 'mariya1985', 'mariya@company.com', 'ACTIVE', 'amazingPassword', FALSE, 'USER'),
+    ('Ирина', 'Николаева', 'Петровна', 'менеджер', 'irina2010', 'irina@company.com', 'ACTIVE', 'pass12345', FALSE, 'USER'),
+    ('Василий', 'Зайцев', 'Владимирович', 'разработчик', 'vasiliy1988', 'vasiliy@company.com', 'ACTIVE', 'password123', FALSE, 'USER');
 
 INSERT INTO employee_in_team
 VALUES
